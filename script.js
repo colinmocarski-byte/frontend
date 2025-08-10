@@ -1,6 +1,6 @@
 
 // Backend-URL
-const DEFAULT_BACKEND = ''; // optional hier fest eintragen
+const DEFAULT_BACKEND = 'https://backend-ozsw.onrender.com/'; 
 
 const $ = (id) => document.getElementById(id);
 const eur = (n, d=0) => (isFinite(n)?n:0).toLocaleString('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:d});
