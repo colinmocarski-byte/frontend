@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ImmoLink → Cashflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="row">
+      <div class="brand">🏠 ImmoLink → Cashflow</div>
+      <nav class="nav">
+        <button id="btnDemo" class="ghost">Demo-Daten</button>
+        <button id="btnSettings" class="ghost">Backend-URL</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <label class="lbl">ImmoScout-Link einfügen</label>
+      <div class="inline">
+        <input id="link" type="url" placeholder="https://www.immobilienscout24.de/expose/..." />
+        <button id="btnFetch" class="primary">Berechnen</button>
+      </div>
+      <p class="hint">Über „Backend-URL“ kannst du deine Render-URL eintragen (z. B. <code>https://dein-service.onrender.com</code>).</p>
+    </section>
+
+    <section class="grid">
+      <div class="col left">
+        <div class="card">
+          <h2>Listing-Daten</h2>
+          <div class="two">
+            <label>Adresse <input id="addr" type="text" /></label>
+            <label>PLZ / Stadt <input id="city" type="text" /></label>
+            <label>Wohnfläche (m²) <input id="area" type="number" step="0.01" /></label>
+            <label>Kaufpreis (€) <input id="price" type="number" step="1000" /></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Overrides</h2>
+          <div class="two">
+            <label>Hausgeld/Monat (€) <input id="hausgeld" type="number" value="200" /></label>
+            <label>Umlagefähig/Monat (€) <input id="umlage" type="number" value="350" /></label>
+            <label>Kaltmiete €/m² <input id="rentPerSqm" type="number" value="11.0" step="0.1" /></label>
+            <label>Stellplätze/Monat (€) <input id="rentSlots" type="number" value="0" /></label>
+            <label>Sonstige Miete/Monat (€) <input id="rentOther" type="number" value="0" /></label>
+            <label>Leerstand p.a. (%) <input id="vacancy" type="number" value="3" step="0.1" /></label>
+            <label>Eigene Inst. €/m²·a <input id="maintPerSqm" type="number" value="10" /></label>
+            <label>Grenzsteuersatz (%) <input id="taxRate" type="number" value="26" /></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col right">
+        <div class="card kpis">
+          <h2>Ergebnis</h2>
+          <div class="kpi"><span>Cashflow/Monat (n. St.)</span><strong id="cfAfterTax">–</strong></div>
+          <div class="kpi"><span>Bruttomietrendite</span><strong id="grossYield">–</strong></div>
+          <div class="kpi"><span>Nettomietrendite</span><strong id="netYield">–</strong></div>
+          <div class="kpi"><span>Eigenkapitalrendite p.a.</span><strong id="roePa">–</strong></div>
+          <div class="actions"><button id="btnDetails" class="secondary">Details</button></div>
+        </div>
+
+        <div class="card">
+          <h2>Amortisations-Diagramm</h2>
+          <div class="chartwrap"><canvas id="chart"></canvas></div>
+          <p class="note">Gestapelt: Zinsen/Tilgung pro Jahr. Linie: Restschuld.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="dlg">
+    <div class="dlg-head">
+      <h3>Berechnungsdetails</h3>
+      <button id="dlgClose" class="ghost">×</button>
+    </div>
+    <div id="details"></div>
+  </dialog>
+
+  <script src="./script.js"></script>
+</body>
+</html>
